@@ -11,8 +11,8 @@ interface TokenCache {
 }
 
 @Injectable()
-export class UrbanBoltAuthService {
-  private readonly logger = new Logger(UrbanBoltAuthService.name);
+export class BlueDartAuthService {
+  private readonly logger = new Logger(BlueDartAuthService.name);
   private cache: TokenCache | null = null;
   private inflight: Promise<string> | null = null;
   private readonly httpClient: AxiosInstance;
@@ -41,7 +41,7 @@ export class UrbanBoltAuthService {
   }
 
   private async fetchToken(): Promise<string> {
-    const baseConfig = config.urbanebolt;
+    const baseConfig = config.bluedart;
     const baseUrl = baseConfig.apiUrl;
     const clientId = baseConfig.clientId;
     const clientSecret = baseConfig.clientSecret;

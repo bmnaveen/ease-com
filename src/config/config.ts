@@ -24,6 +24,11 @@ const config = {
         clientSecret: process.env.URBANEBOLT_API_SECRET as string,
         apiUrl: process.env.URBANEBOLT_API_URL as string,
     },
+    bluedart:{
+        clientId: process.env.BLUEDART_API_KEY as string,
+        clientSecret: process.env.BLUEDART_API_SECRET as string,
+        apiUrl: process.env.BLUEDART_API_URL as string,
+    },
     retryConfig:{
         retries: parseInt(process.env.COURIER_RETRY_MAX_ATTEMPTS as string, 10) || 3,
         retryDelay: parseInt(process.env.COURIER_RETRY_DELAY_MS as string, 10) || 1000,
