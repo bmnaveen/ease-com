@@ -27,6 +27,7 @@ const config = {
     retryConfig:{
         retries: parseInt(process.env.COURIER_RETRY_MAX_ATTEMPTS as string, 10) || 3,
         retryDelay: parseInt(process.env.COURIER_RETRY_DELAY_MS as string, 10) || 1000,
+        authRetries: parseInt(process.env.COURIER_AUTH_RETRIES as string, 10) || 1,
     }
 }
 export default config;

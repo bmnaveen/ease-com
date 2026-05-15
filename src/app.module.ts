@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AppDataSource } from './database/db-source';
 import config from './config/config';
 import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/entities/order.entity';
+import { TrackingEvent } from './orders/entities/tracking.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -15,7 +15,8 @@ import { OrdersModule } from './orders/orders.module';
       username: config.db.user,
       password: config.db.password,
       database: config.db.name,
-      synchronize: true,
+      entities: [Order, TrackingEvent],
+      synchronize: true,       //Keep this false at Prod deployment and keep it Configurable
     }),
     OrdersModule,
   ],

@@ -19,11 +19,7 @@ export class TrackingEvent {
     @Column({name: 'order_id', type: 'uuid'})
     orderId: string;
 
-    @ManyToOne(() => Order, (order) => order.trackingEvents, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'order_id' })
-    order: Order;
-
-    @Column({name: 'courier_status', type: 'enum', enum: ShipmentStatus})
+    @Column({name: 'courier_status', type: 'varchar'})
     status: ShipmentStatus;
 
     @Column({name: 'courier_status_raw', type: 'varchar', length: 128, nullable: true})

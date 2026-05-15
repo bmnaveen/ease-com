@@ -1,12 +1,8 @@
-import axios from "axios";
 import { Injectable } from "@nestjs/common";
-import { ShipmentStatus } from "src/common/enums/ShimentStatus.enum";
 import { BaseCourierAdapter } from "../base/base-courier.adapter";
 import {
     CourierCtx,
-    ICourierAdapter,
     NormalizedCreateOrder,
-    NormalizedCreateOrderResult 
 } from "../courier.interface";
 import { UrbanBoltAuthService } from "./urbanebolt.auth";
 import { UrbaneBoltMapper } from "./urbanbolt.mapper";
@@ -66,7 +62,7 @@ export class UrbanBoltAdapter extends BaseCourierAdapter  {
                 Authorization: `Bearer ${token}`
             },
             data: {
-                awb: courierOrderId
+                awbs: courierOrderId
             }
         }, ctx);
 

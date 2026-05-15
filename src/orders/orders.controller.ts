@@ -10,7 +10,7 @@ import {
     Headers,
     Query
 } from '@nestjs/common';
-import { CancelOrderDto, CreateOrderDto, CommonDto} from './dto/create-order.dto';
+import { CancelOrderDto, CreateOrderDto, CommonDto, BatchCreateOrderDto} from './dto/create-order.dto';
 import { OrdersService } from './orders.service';
 
 @Controller({path: 'orders', version: '1'})
@@ -22,8 +22,7 @@ export class OrdersController {
         @Body() dto: CreateOrderDto,
         @Headers('x-request-id') requestId: string
     ) : Promise<any> {
-       const order = await this.service.create(dto, requestId);
-       return {message: 'Order created successfully', data: order};
+       return await this.service.create(dto, requestId);
     }
 
     @Get()
@@ -32,8 +31,7 @@ export class OrdersController {
         @Body() dto: CommonDto,
         @Headers('x-request-id') requestId: string
     ) : Promise<any> {
-        const order = await this.service.get(id, dto.courier_partner, requestId);
-        return {message: 'Order fetched successfully', data: order};
+        return await this.service.get(id, dto.courier_partner, requestId);
     }
 
     @Post("/cancel")
@@ -41,11 +39,15 @@ export class OrdersController {
         @Body() dto: CancelOrderDto,
         @Headers('x-request-id') requestId: string
     ) : Promise<any> {
-       const result = await this.service.cancel(dto.awb, dto.courier_partner, requestId);
-       return {message: 'Order cancelled successfully', data: result};
+       return await this.service.cancel(dto.awb, dto.courier_partner, requestId);
     }
 
-
-
-    
+    @Post("/batch")
+    async bulkCreate(
+        @Body() dto: BatchCreateOrderDto,
+        @Headers('x-request-id') requestId: string
+    ) : Promise<any> {
+          return await this.service.bulkOrder(dto, requestId);
+      
+    }
 }

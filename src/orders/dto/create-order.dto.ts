@@ -1,4 +1,5 @@
 
+import { Type } from 'class-transformer';
 import {
   IsString,
   IsNumber,
@@ -9,6 +10,10 @@ import {
   IsOptional,
   IsPositive,
   Min,
+  IsArray,
+  ArrayMinSize,
+  ValidateNested,
+  ArrayMaxSize,
 } from 'class-validator';
 
 export class CommonDto {
@@ -210,4 +215,14 @@ export class CreateOrderDto extends CommonDto {
 export class CancelOrderDto extends CommonDto {
   @IsString()
   awb: string;
+}
+
+
+export class BatchCreateOrderDto {
+  @IsArray()
+  @ArrayMinSize(2)
+  @ArrayMaxSize(100)
+  @ValidateNested({ each: true })
+  @Type(() => CreateOrderDto)
+  orders: CreateOrderDto[];
 }

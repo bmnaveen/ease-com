@@ -3,14 +3,14 @@ import { AppModule } from './app.module';
 import config from './config/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { RequestIdInterceptor } from './common/interceptors/request-id.interceptor';
-
+import {GlobalExceptionFilter} from './common/filters/global-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableVersioning({type: VersioningType.URI, defaultVersion: '1'});
 
   app.useGlobalInterceptors(new RequestIdInterceptor());
-
+  app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
